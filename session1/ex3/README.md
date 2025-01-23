@@ -119,6 +119,30 @@ int main(void)
 
 As a group, discuss each new line of code that has been added to the GPU version of the code and hypothesize what it does and why it's needed to run successfully on the GPU.
 
+## Exercise
+
+You can compile this code with:
+```
+$ nvcc -x cu add_gpu.cpp -o add_gpu
+```
+
+Now you can run it with:
+```
+$ ./add_gpu
+```
+
+What is the output?
+
+## Profiling
+
+Now run this example with `nsys profile`:
+```
+$ nsys profile ./add_gpu
+$ nsys stats report1.nsys-prof
+```
+
+Examine the output. How long did it take to add the two arrays? How long did it take to transfer the input data to the GPU? How long did it take to transfer the result back to the CPU? Provide your answers in milliseconds.
+
 ## Timing comparison
 
 Run each version of the code and see how long each takes to run using the `time` command:
@@ -130,4 +154,14 @@ and
 time ./add_gpu
 ```
 
+*Note:* The elapsed time (i.e., that you would measure on a stopwatch) is that reported as the number after "real:".
+
 Which version is faster? By how much?
+
+## Discussion
+
+You should have found that the *CPU* version is substantially faster. Discuss as a group and form a hypothesis as to why this is the case for this example.
+
+## Collective discussion
+
+We will discuss the results of each group. I will provide additional context.
