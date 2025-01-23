@@ -3,7 +3,7 @@
 ## environment setup for nt.swin.edu.au
 
 ## set up aliases
-alias getgpu='sinteractive --time=1:00:00 --mem=32g --cpus-per-task=4 --gres=gpu:1'
+alias getgpu='sinteractive --time=1:00:00 --mem=128g --cpus-per-task=16 --gres=gpu:1'
 
 ## set up environment modules
 module load gcc/12.3.0
