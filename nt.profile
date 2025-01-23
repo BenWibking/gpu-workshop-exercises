@@ -3,7 +3,7 @@
 ## environment setup for nt.swin.edu.au
 
 ## set up aliases
-alias getgpu='sinteractive --time=1:00:00 --mem=128g --cpus-per-task=16 --gres=gpu:1'
+alias getgpu='sinteractive --time=1:00:00 --mem=128g --cpus-per-task=16 --gres=gpu:1 --tmp=512G'
 alias getquokka='git clone --recursive https://github.com/quokka-astro/quokka.git'
 
 ## set up environment modules
