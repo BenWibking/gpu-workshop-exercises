@@ -9,5 +9,5 @@ alias getgpu='sinteractive --time=1:00:00 --mem=32g --cpus-per-task=4 --gres=gpu
 module load gcc/12.3.0
 module load cmake/3.26.3
 module load cuda/12.6.0
-module load hdf5/1.14.0
 module load openmpi/4.1.5
+module load hdf5/1.14.0
