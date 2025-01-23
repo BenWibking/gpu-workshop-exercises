@@ -143,6 +143,8 @@ $ nsys stats report1.nsys-rep
 
 Examine the output. How long did it take to add the two arrays? How long did it take to transfer the input data to the GPU? How long did it take to transfer the result back to the CPU? Provide your answers in milliseconds.
 
+Examine the output again. How much data (in megabytes) was transferred from the CPU to the GPU? How much data (in megabytes) was transferred from the GPU to the CPU? Using these numbers, calculate the bandwidth (in gigabytes per second) of data transfer between CPU and GPU and vice versa.
+
 ## Timing comparison
 
 Run each version of the code and see how long each takes to run using the `time` command:
