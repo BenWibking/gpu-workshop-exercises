@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Here is a GPU version of the code that launches a kernel with 256 threads:
+Here is a GPU version of the code that launches a kernel with one thread block and 256 threads per thread block:
 
 ```
 #include <iostream>
