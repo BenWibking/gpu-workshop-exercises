@@ -34,6 +34,6 @@ This should take about 5 minutes.
 ```
 $ cp src/problems/HydroBlast3D/test_hydro3d_blast ~/gpu-workshop-exercises/
 $ cd ~/gpu-workshop-exercises
-$ ./test_hydro3d_blast quokka/tests/blast_32.in
+$ mpirun ./test_hydro3d_blast quokka/tests/blast_32.in
 ```
 This should take less than 1 minute to run.
