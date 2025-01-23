@@ -1,4 +1,4 @@
-# Exercise 1: Your first GPU kernel
+# Exercise 1: Your first GPU code
 
 ## Introduction
 
@@ -55,3 +55,9 @@ What do you see?
 As a group, determine how long it took the `cuda_hello()` kernel to run based on the output from this command.
 
 As a group, make a hypothesis as to why you get different output when running `./hello` versus running `nsys profile ./hello`.
+
+## Collective discussion
+
+We will discuss each group's hypotheses and I will provide some additional context.
+
+*NOTE: Please do NOT yet go on to exercise 2. It may spoil the discussion for other groups.*
