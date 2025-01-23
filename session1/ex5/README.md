@@ -1,8 +1,8 @@
-# Exercise 4: Adding two vectors, again
+# Exercise 5: Adding two vectors, x2
 
 ## Introduction
 
-Here is a GPU version of the code that launches a kernel with one thread block and 256 threads per thread block:
+Here is a GPU version of the code that launches a kernel with multiple thread blocks and 256 threads per thread block:
 
 ```
 #include <iostream>
@@ -12,10 +12,10 @@ Here is a GPU version of the code that launches a kernel with one thread block a
 __global__
 void add(int n, float *x, float *y)
 {
-  int index = threadIdx.x;
-  int stride = blockDim.x;
+  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int stride = blockDim.x * gridDim.x;
   for (int i = index; i < n; i += stride)
-      y[i] = x[i] + y[i];
+    y[i] = x[i] + y[i];
 }
 
 int main(void)
@@ -38,7 +38,9 @@ int main(void)
   cudaMemcpy(x_d, x.data(), N*sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(y_d, y.data(), N*sizeof(float), cudaMemcpyHostToDevice);
 
-  add<<<1, 256>>>(N, x_d, y_d);
+  int blockSize = 256;
+  int numBlocks = (N + blockSize - 1) / blockSize;
+  add<<<numBlocks, blockSize>>>(N, x_d, y_d);
 
   cudaDeviceSynchronize();
 
@@ -59,13 +61,11 @@ int main(void)
 
 ## Discussion
 
-As a group, discuss the modifications to the code made since Exercise 3.
+As a group, discuss the modifications to the code made since Exercise 4.
 
-* How many warps will this kernel launch?
+* How many thread blocks will this code launch?
 
 * Why are the modifications to the `add` function necessary?
-
-* What do you think the `threadIdx.x` and `blockDim.x` variables are?
 
 ## Exercise
 
@@ -85,7 +85,7 @@ What is the output?
 
 Run the old version of the code and this new version and see how long each takes to run using the `time` command:
 ```
-time ../ex3/add_gpu
+time ../ex4/add_gpu
 ```
 and
 ```
@@ -105,5 +105,27 @@ $ nsys stats report1.nsys-rep
 ```
 
 Examine the output. How long did it take to run the kernel to add the two arrays with this version? How does this time compare with the time it takes to transfer the arrays from CPU to GPU?
+
+## Collective Discussion
+
+## Varying array size
+
+Now, let's compare the CPU vs. GPU performance as a function of array size. We initially chose an array of 1e6 elements. Let's reduce that by an order of magnitude at a time. We will find that for small enough arrays, adding two arrays is faster on the CPU.
+
+* Modify the code in `add_gpu.cpp` to run with 1e5 array elements and re-compile and re-run it. Write down the elapsed time output by `time ./add_gpu`.
+
+* Modify the code in `../ex3/add_cpu.cpp` to run with 1e5 array elements and re-compile and re-run it. Write down the elapsed time output by `time ../ex3/add_cpu`.
+
+* Repeat the above two steps for N = 10,000 array elements.
+
+* Repeat the above for N = 1,000 array elements.
+
+At what size does running on the CPU become faster than running on the GPU?
+
+## Discussion
+
+Could you improve the performance of the GPU code?
+
+What factors could change the threshold array size for which the GPU is faster?
 
 ## Collective Discussion
