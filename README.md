@@ -19,6 +19,7 @@ $ . nt.profile
 4. Test that you are able to launch an interactive GPU job:
 ```
 $ start_gpu_job
+$ exit
 ```
 
 Now you are ready to proceed to the exercises.

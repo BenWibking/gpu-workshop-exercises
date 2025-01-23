@@ -17,7 +17,7 @@ $ start_gpu_job
 
 4. Copy the `quokka` directory to `/tmp`:
 ```
-$ cp -r quokka /tmp/
+$ cp -r quokka /tmp
 ```
 
 5. Compile QUOKKA:
