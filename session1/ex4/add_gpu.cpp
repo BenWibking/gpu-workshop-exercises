@@ -5,7 +5,9 @@
 __global__
 void add(int n, float *x, float *y)
 {
-  for (int i = 0; i < n; i++)
+  int index = threadIdx.x;
+  int stride = blockDim.x;
+  for (int i = index; i < n; i += stride)
       y[i] = x[i] + y[i];
 }
 
@@ -29,7 +31,7 @@ int main(void)
   cudaMemcpy(x_d, x.data(), N*sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(y_d, y.data(), N*sizeof(float), cudaMemcpyHostToDevice);
 
-  add<<<1, 1>>>(N, x_d, y_d);
+  add<<<1, 256>>>(N, x_d, y_d);
 
   cudaDeviceSynchronize();
 
