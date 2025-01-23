@@ -138,7 +138,7 @@ What is the output?
 Now run this example with `nsys profile`:
 ```
 $ nsys profile ./add_gpu
-$ nsys stats report1.nsys-prof
+$ nsys stats report1.nsys-rep
 ```
 
 Examine the output. How long did it take to add the two arrays? How long did it take to transfer the input data to the GPU? How long did it take to transfer the result back to the CPU? Provide your answers in milliseconds.
