@@ -110,17 +110,19 @@ Examine the output. How long did it take to run the kernel to add the two arrays
 
 ## Varying array size
 
-Now, let's compare the CPU vs. GPU performance as a function of array size. We initially chose an array of 1e6 elements. Let's reduce that by an order of magnitude at a time. We will find that for small enough arrays, adding two arrays is faster on the CPU.
+Now, let's compare the CPU vs. GPU performance as a function of array size. We initially chose an array of 1e6 elements. Let's increase that by several orders of magnitude. We will find that for large enough arrays, adding two arrays is faster on the GPU.
 
-* Modify the code in `add_gpu.cpp` to run with 1e5 array elements and re-compile and re-run it. Write down the elapsed time output by `time ./add_gpu`.
+* Modify the code in `add_gpu.cpp` to run with 1e7 array elements and re-compile and re-run it. Write down the elapsed time output by `time ./add_gpu`.
 
-* Modify the code in `../ex3/add_cpu.cpp` to run with 1e5 array elements and re-compile and re-run it. Write down the elapsed time output by `time ../ex3/add_cpu`.
+* Modify the code in `../ex3/add_cpu.cpp` to run with 1e7 array elements and re-compile and re-run it. Write down the elapsed time output by `time ../ex3/add_cpu`.
 
-* Repeat the above two steps for N = 10,000 array elements.
+* Repeat the above two steps for N = 1e8 array elements.
 
-* Repeat the above for N = 1,000 array elements.
+* Repeat the above for N = 1e9 array elements.
 
-At what size does running on the CPU become faster than running on the GPU?
+NOTE: It may be easier to modify the GPU code and run it for all array sizes first, and then modify the CPU code in `../ex3` and run it for all array sizes.
+
+At what size does running on the GPU become faster than running on the CPU?
 
 ## Discussion
 
