@@ -26,14 +26,14 @@ int main(void)
   cudaMalloc(&x_d, N*sizeof(float));
   cudaMalloc(&y_d, N*sizeof(float));
 
-  cudaMemcpy(x_d, x, N*sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(y_d, y, N*sizeof(float), cudaMemcpyHostToDevice);
+  cudaMemcpy(x_d, x.data(), N*sizeof(float), cudaMemcpyHostToDevice);
+  cudaMemcpy(y_d, y.data(), N*sizeof(float), cudaMemcpyHostToDevice);
 
-  add<<<1, 1>>>(N, x, y);
+  add<<<1, 1>>>(N, x_d, y_d);
 
   cudaDeviceSynchronize();
 
-  cudaMemcpy(y, y_d, N*sizeof(float), cudaMemcpyDeviceToHost);
+  cudaMemcpy(y.data(), y_d, N*sizeof(float), cudaMemcpyDeviceToHost);
 
   cudaFree(x_d);
   cudaFree(y_d);
