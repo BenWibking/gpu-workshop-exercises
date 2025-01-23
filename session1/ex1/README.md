@@ -1,11 +1,13 @@
-# Exercise 1
+# Exercise 1: Your first GPU kernel
 
-## Your first GPU kernel
+## Introduction
 
 We are going to start by showing how to run the simplest possible program on the GPU.
 
 Here is the code:
 ```
+#include <cstdio>
+
 __global__ void cuda_hello(){
     printf("Hello World from GPU!\n");
 }
@@ -16,7 +18,40 @@ int main() {
 }
 ```
 
-Now you can compile it with:
+## Discussion
+
+As a group, discuss each line of code and hypothesize what it does and why it's included in this example code.
+
+## Exercise
+
+You can compile this code with:
 ```
-$ nvcc hello.cpp -o hello
+$ nvcc -x cu hello.cpp -o hello
 ```
+
+Now you can run it with:
+```
+$ ./hello
+```
+
+What happened?
+
+Try running it with the NVIDIA Nsight Systems profiler:
+```
+$ nsys profile ./hello
+```
+
+What happened now?
+
+Let's look at the profiling data:
+```
+$ nsys stats report1.nsys-rep
+```
+
+What do you see?
+
+## Discussion
+
+As a group, determine how long it took the `cuda_hello()` kernel to run based on the output from this command.
+
+As a group, make a hypothesis as to why you get different output when running `./hello` versus running `nsys profile ./hello`.
