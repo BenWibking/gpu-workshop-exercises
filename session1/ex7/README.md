@@ -11,26 +11,18 @@ Here is a GPU version of the code that uses C++ lambda functions:
 #include <thrust/device_ptr.h>
 #include <thrust/extrema.h>
 
-template <typename T> __global__ void ParallelForKernel(int n, T f) {
+template <typename T> __global__ void ParallelForKernel(int N, T f) {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
   int stride = blockDim.x * gridDim.x;
-  for (int i = index; i < n; i += stride) {
+  for (int i = index; i < N; i += stride) {
     f(i);
   }
 }
 
-template <typename T> void ParallelFor(int n, T f) {
+template <typename T> void ParallelFor(int N, T f) {
   int blockSize = 256;
   int numBlocks = (N + blockSize - 1) / blockSize;
   ParallelForKernel<<<numBlocks, blockSize>>>(N, f);
-}
-
-__global__ void computeError(int n, float *y) {
-  int index = blockIdx.x * blockDim.x + threadIdx.x;
-  int stride = blockDim.x * gridDim.x;
-  for (int i = index; i < n; i += stride) {
-    y[i] = fabs(y[i] - 3.0f);
-  }
 }
 
 int main(void) {
