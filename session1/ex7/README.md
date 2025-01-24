@@ -46,28 +46,25 @@ int main(void) {
   cudaMalloc(&x_d, N * sizeof(float));
   cudaMalloc(&y_d, N * sizeof(float));
 #else
-  malloc(x_d, N * sizeof(float));
-  malloc(y_d, N * sizeof(float));
+  x_d = (float *)malloc(N * sizeof(float));
+  y_d = (float *)malloc(N * sizeof(float));
 #endif
 
-  ParallelFor(
-      N, [=] __host__ __device__ (int i) {
-        // this initializes the arrays
-        x_d[i] = 1.0f;
-        y_d[i] = 2.0f;
-      });
+  ParallelFor(N, [=] __host__ __device__(int i) {
+    // this initializes the arrays
+    x_d[i] = 1.0f;
+    y_d[i] = 2.0f;
+  });
 
-  ParallelFor(
-      N, [=] __host__ __device__ (int i) {
-        // this adds the two arrays
-        y_d[i] = x_d[i] + y_d[i];
-      });
+  ParallelFor(N, [=] __host__ __device__(int i) {
+    // this adds the two arrays
+    y_d[i] = x_d[i] + y_d[i];
+  });
 
-  ParallelFor(
-      N, [=] __host__ __device__ (int i) {
-        // this computes the error in y
-        y_d[i] = fabs(y_d[i] - 3.0f);
-      });
+  ParallelFor(N, [=] __host__ __device__(int i) {
+    // this computes the error in y
+    y_d[i] = fabs(y_d[i] - 3.0f);
+  });
 
   // Find the maximum value of y_d
   thrust::device_ptr<float> d_ptr(y_d);
