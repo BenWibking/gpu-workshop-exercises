@@ -56,6 +56,7 @@ __global__ void reduceMax(float *data, float *result, int n) {
 
 int main(void) {
   int N = 1e6;
+  std::cout << "N = " << N << " elements\n";
 
   float *x_d;
   float *y_d;

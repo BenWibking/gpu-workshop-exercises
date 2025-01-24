@@ -12,6 +12,7 @@ void add(int n, float *x, float *y)
 int main(void)
 {
   int N = 1e6;
+  std::cout << "N = " << N << " elements\n";
 
   std::vector<float> x(N);
   std::vector<float> y(N);
