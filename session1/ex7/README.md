@@ -8,6 +8,8 @@ Here is a GPU version of the code that uses C++ lambda functions:
 #include <cfloat>
 #include <iostream>
 #include <math.h>
+#include <thrust/device_ptr.h>
+#include <thrust/extrema.h>
 
 template <typename T> __global__ void ParallelForKernel(int n, T f) {
   int index = blockIdx.x * blockDim.x + threadIdx.x;

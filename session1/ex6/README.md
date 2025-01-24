@@ -8,6 +8,8 @@ Here is a GPU version of the code that avoids CPU-GPU data transfers (except for
 #include <cfloat>
 #include <iostream>
 #include <math.h>
+#include <thrust/device_ptr.h>
+#include <thrust/extrema.h>
 
 __global__ void initialize(int n, float *x, float *y) {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
