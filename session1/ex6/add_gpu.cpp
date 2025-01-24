@@ -69,7 +69,7 @@ int main(void) {
 
   // The remainder of this code is verifies that the above calculation was
   // performed correctly.
-  computeError<<numBlocks, blockSize>>(N, y_d);
+  computeError<<<numBlocks, blockSize>>>(N, y_d);
 
   // 1. Compute the maximum error in y_d within each thread block
   float *partialMax_d;
