@@ -1,8 +1,8 @@
-# Exercise 7: Adding two vectors (with C++ lambda functions)
+# Exercise 7: Performance-portable code
 
 ## Introduction
 
-Here is a GPU version of the code that uses C++ lambda functions:
+Here is another version of the code:
 
 ```
 #include <cfloat>
@@ -11,10 +11,18 @@ Here is a GPU version of the code that uses C++ lambda functions:
 #include <thrust/device_ptr.h>
 #include <thrust/extrema.h>
 
-template <typename T> __global__ void ParallelForKernel(int N, T f) {
+#ifdef __CUDACC__
+template <typename T> __global__ void ParallelForKernelGPU(int N, T f) {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
   int stride = blockDim.x * gridDim.x;
   for (int i = index; i < N; i += stride) {
+    f(i);
+  }
+}
+#endif
+
+template <typename T> void ParallelForKernelCPU(int N, T f) {
+  for (int i = index; i < N; i++) {
     f(i);
   }
 }
@@ -22,7 +30,11 @@ template <typename T> __global__ void ParallelForKernel(int N, T f) {
 template <typename T> void ParallelFor(int N, T f) {
   int blockSize = 256;
   int numBlocks = (N + blockSize - 1) / blockSize;
-  ParallelForKernel<<<numBlocks, blockSize>>>(N, f);
+#ifdef __CUDACC__
+  ParallelForKernelGPU<<<numBlocks, blockSize>>>(N, f);
+#else
+  ParallelForKernelCPU(N, f);
+#endif
 }
 
 int main(void) {
@@ -30,8 +42,13 @@ int main(void) {
 
   float *x_d;
   float *y_d;
+#ifdef __CUDACC__
   cudaMalloc(&x_d, N * sizeof(float));
   cudaMalloc(&y_d, N * sizeof(float));
+#else
+  malloc(x_d, N * sizeof(float));
+  malloc(y_d, N * sizeof(float));
+#endif
 
   ParallelFor(
       N, [=] __host__ __device__ (int i) {
@@ -59,8 +76,13 @@ int main(void) {
   std::cout << "Max error: " << maxError << std::endl;
 
   // Free memory
+#ifdef __CUDACC__
   cudaFree(x_d);
   cudaFree(y_d);
+#else
+  free(x_d);
+  free(y_d);
+#endif
   return 0;
 }
 ```
@@ -69,43 +91,34 @@ int main(void) {
 
 As a group, discuss the modifications to the code made since Exercise 6.
 
-## Exercise
+## Exercise A
 
-You can compile this code with:
+Try to compile this code with:
 ```
 $ nvcc -x cu add_gpu.cpp -o add_gpu
 ```
 
-Now you can run it with:
+What error do you see? How can you fix the error?
+
+Try to fix the error. Once you have compiled it successfully, you can run it with:
 ```
 $ ./add_gpu
 ```
 
-What is the output?
+How fast is it?
 
-## Timing comparison
+## Exercise B
 
-Run the old version of the code and this new version and see how long each takes to run using the `time` command:
+Now try to compile this code for CPU with:
 ```
-time ../ex6/add_gpu
-```
-and
-```
-time ./add_gpu
+$ gcc add_gpu.cpp -o add_cpu
 ```
 
-*Note:* The elapsed time (i.e., that you would measure on a stopwatch) is that reported as the number after "real:".
-
-Which version is faster? By how much?
-
-## Profiling
-
-Now run this example with `nsys profile`:
+Then, run it with:
 ```
-$ nsys profile ./add_gpu
-$ nsys stats report1.nsys-rep
+$ ./add_cpu
 ```
 
-Examine the output. How does it differ from the previous example?
+How fast is it?
 
 ## Collective Discussion

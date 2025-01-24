@@ -4,10 +4,18 @@
 #include <thrust/device_ptr.h>
 #include <thrust/extrema.h>
 
-template <typename T> __global__ void ParallelForKernel(int N, T f) {
+#ifdef __CUDACC__
+template <typename T> __global__ void ParallelForKernelGPU(int N, T f) {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
   int stride = blockDim.x * gridDim.x;
   for (int i = index; i < N; i += stride) {
+    f(i);
+  }
+}
+#endif
+
+template <typename T> void ParallelForKernelCPU(int N, T f) {
+  for (int i = index; i < N; i++) {
     f(i);
   }
 }
@@ -15,7 +23,11 @@ template <typename T> __global__ void ParallelForKernel(int N, T f) {
 template <typename T> void ParallelFor(int N, T f) {
   int blockSize = 256;
   int numBlocks = (N + blockSize - 1) / blockSize;
-  ParallelForKernel<<<numBlocks, blockSize>>>(N, f);
+#ifdef __CUDACC__
+  ParallelForKernelGPU<<<numBlocks, blockSize>>>(N, f);
+#else
+  ParallelForKernelCPU(N, f);
+#endif
 }
 
 int main(void) {
@@ -23,8 +35,13 @@ int main(void) {
 
   float *x_d;
   float *y_d;
+#ifdef __CUDACC__
   cudaMalloc(&x_d, N * sizeof(float));
   cudaMalloc(&y_d, N * sizeof(float));
+#else
+  malloc(x_d, N * sizeof(float));
+  malloc(y_d, N * sizeof(float));
+#endif
 
   ParallelFor(
       N, [=] __host__ __device__ (int i) {
@@ -52,7 +69,12 @@ int main(void) {
   std::cout << "Max error: " << maxError << std::endl;
 
   // Free memory
+#ifdef __CUDACC__
   cudaFree(x_d);
   cudaFree(y_d);
+#else
+  free(x_d);
+  free(y_d);
+#endif
   return 0;
 }
