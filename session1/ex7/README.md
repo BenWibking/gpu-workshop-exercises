@@ -22,7 +22,7 @@ template <typename T> __global__ void ParallelForKernelGPU(int N, T f) {
 #endif
 
 template <typename T> void ParallelForKernelCPU(int N, T f) {
-  for (int i = index; i < N; i++) {
+  for (int i = 0; i < N; i++) {
     f(i);
   }
 }
