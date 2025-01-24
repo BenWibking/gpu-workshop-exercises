@@ -27,20 +27,20 @@ int main(void) {
   cudaMalloc(&y_d, N * sizeof(float));
 
   ParallelFor(
-      N, __device__[=](int i) {
+      N, [=] __host__ __device__ (int i) {
         // this initializes the arrays
         x_d[i] = 1.0f;
         y_d[i] = 2.0f;
       });
 
   ParallelFor(
-      N, __device__[=](int i) {
+      N, [=] __host__ __device__ (int i) {
         // this adds the two arrays
         y_d[i] = x_d[i] + y_d[i];
       });
 
   ParallelFor(
-      N, __device__[=](int i) {
+      N, [=] __host__ __device__ (int i) {
         // this computes the error in y
         y_d[i] = fabs(y_d[i] - 3.0f);
       });
