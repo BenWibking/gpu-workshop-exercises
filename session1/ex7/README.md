@@ -99,12 +99,10 @@ As a group, discuss the modifications to the code made since Exercise 6.
 
 Try to compile this code with:
 ```
-$ nvcc -x cu add.cpp -o add_gpu
+$ nvcc -x cu --extended-lambda add.cpp -o add_gpu
 ```
 
-What error do you see? How can you fix the error?
-
-Try to fix the error. Once you have compiled it successfully, you can run it with:
+Run it with:
 ```
 $ time ./add_gpu
 ```
