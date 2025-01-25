@@ -2,7 +2,6 @@
 #include <iostream>
 #include <math.h>
 #include <thrust/extrema.h>
-#include <thrust/host_vector.h>
 #include <thrust/device_ptr.h>
 
 #ifdef __CUDACC__
@@ -71,7 +70,7 @@ int main(void) {
 #ifdef __CUDACC__
   thrust::device_ptr<float> d_ptr(y_d);
 #else
-  thrust::host_ptr<float> d_ptr(y_d);
+  float *d_ptr = y_d;
 #endif
 
   auto max_iter = thrust::max_element(d_ptr, d_ptr + N);
