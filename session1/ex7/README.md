@@ -8,8 +8,8 @@ Here is another version of the code:
 #include <cfloat>
 #include <iostream>
 #include <math.h>
-#include <thrust/device_ptr.h>
 #include <thrust/extrema.h>
+#include <thrust/universal_allocator.h>
 
 #ifdef __CUDACC__
 template <typename T> __global__ void ParallelForKernelGPU(int N, T f) {
@@ -37,6 +37,12 @@ template <typename T> void ParallelFor(int N, T f) {
 #endif
 }
 
+#ifdef __CUDACC__
+#define HOST_DEVICE __host__ __device__
+#else
+#define HOST_DEVICE
+#endif
+
 int main(void) {
   int N = 1e6;
 
@@ -50,24 +56,24 @@ int main(void) {
   y_d = (float *)malloc(N * sizeof(float));
 #endif
 
-  ParallelFor(N, [=] __host__ __device__(int i) {
+  ParallelFor(N, [=] HOST_DEVICE(int i) {
     // this initializes the arrays
     x_d[i] = 1.0f;
     y_d[i] = 2.0f;
   });
 
-  ParallelFor(N, [=] __host__ __device__(int i) {
+  ParallelFor(N, [=] HOST_DEVICE(int i) {
     // this adds the two arrays
     y_d[i] = x_d[i] + y_d[i];
   });
 
-  ParallelFor(N, [=] __host__ __device__(int i) {
+  ParallelFor(N, [=] HOST_DEVICE(int i) {
     // this computes the error in y
     y_d[i] = fabs(y_d[i] - 3.0f);
   });
 
   // Find the maximum value of y_d
-  thrust::device_ptr<float> d_ptr(y_d);
+  thrust::universal_ptr<float> d_ptr(y_d);
   auto max_iter = thrust::max_element(d_ptr, d_ptr + N);
   float maxError = *max_iter;
   std::cout << "Max error: " << maxError << std::endl;
