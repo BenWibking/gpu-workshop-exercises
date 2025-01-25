@@ -45,6 +45,7 @@ template <typename T> void ParallelFor(int N, T f) {
 
 int main(void) {
   int N = 1e6;
+  std::cout << "N = " << N << " elements\n";
 
   float *x_d;
   float *y_d;
@@ -98,14 +99,14 @@ As a group, discuss the modifications to the code made since Exercise 6.
 
 Try to compile this code with:
 ```
-$ nvcc -x cu add_gpu.cpp -o add_gpu
+$ nvcc -x cu add.cpp -o add_gpu
 ```
 
 What error do you see? How can you fix the error?
 
 Try to fix the error. Once you have compiled it successfully, you can run it with:
 ```
-$ ./add_gpu
+$ time ./add_gpu
 ```
 
 How fast is it?
@@ -114,14 +115,18 @@ How fast is it?
 
 Now try to compile this code for CPU with:
 ```
-$ gcc add_gpu.cpp -o add_cpu
+$ g++ -DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_CPP add.cpp -o add_cpu
 ```
 
 Then, run it with:
 ```
-$ ./add_cpu
+$ time ./add_cpu
 ```
 
 How fast is it?
+
+## Exercise C
+
+Change N to 1e9. Then re-compile and re-run for both GPU and CPU. How fast is each version?
 
 ## Collective Discussion
