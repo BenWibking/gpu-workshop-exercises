@@ -3,7 +3,8 @@
 ## environment setup for nt.swin.edu.au
 
 ## set up aliases
-alias start_gpu_job='sinteractive --time=1:30:00 --mem=120g --cpus-per-task=16 --gres=gpu:1 --tmp=500G'
+## system time limit is 1 hour
+alias start_gpu_job='sinteractive --time=1:00:00 --mem=120g --cpus-per-task=16 --gres=gpu:1 --tmp=500G'
 alias download_quokka='git clone --recursive https://github.com/quokka-astro/quokka.git'
 
 ## set up environment modules
