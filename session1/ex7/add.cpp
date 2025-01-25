@@ -2,7 +2,8 @@
 #include <iostream>
 #include <math.h>
 #include <thrust/extrema.h>
-#include <thrust/universal_allocator.h>
+#include <thrust/host_vector.h>
+#include <thrust/device_ptr.h>
 
 #ifdef __CUDACC__
 template <typename T> __global__ void ParallelForKernelGPU(int N, T f) {
@@ -67,7 +68,12 @@ int main(void) {
   });
 
   // Find the maximum value of y_d
-  thrust::universal_ptr<float> d_ptr(y_d);
+#ifdef __CUDACC__
+  thrust::device_ptr<float> d_ptr(y_d);
+#else
+  thrust::host_ptr<float> d_ptr(y_d);
+#endif
+
   auto max_iter = thrust::max_element(d_ptr, d_ptr + N);
   float maxError = *max_iter;
   std::cout << "Max error: " << maxError << std::endl;
