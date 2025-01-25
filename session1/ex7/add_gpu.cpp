@@ -60,12 +60,8 @@ int main(void) {
   });
 
   // Find the maximum value of y_d
-#ifdef __CUDACC__
-  thrust::device_ptr<float> d_ptr(y_d);
-#else
-  thrust::host_ptr<float> d_ptr(y_d);
-#endif
-
+  thrust::universal_ptr<float> d_ptr(y_d);
+  
   auto max_iter = thrust::max_element(d_ptr, d_ptr + N);
   float maxError = *max_iter;
   std::cout << "Max error: " << maxError << std::endl;
