@@ -13,9 +13,11 @@ amr.blocking_factor = 128   # grid size must be divisible by this
 
 2. Run the new test problem
 ```
-$ mpirun ./blast_gpu quokka/tests/blast_128.in
+$ mpirun ./blast_gpu quokka/tests/blast_128.in max_timesteps=500
 ```
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
+
+(These grid parameters do not make for running on the CPU, so we will not run the CPU version.)
 
 ## Discussion
 How much faster is this version of the simulation compared to the previous version?
