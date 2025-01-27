@@ -29,7 +29,11 @@ $ mpirun --oversubscribe -np 16 ./blast_cpu quokka/tests/blast_32.in
 
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
 
+# Discussion
 How much faster is running on 1 GPU compared to running on 16 CPU cores?
+
 Discuss in your group whether this is a fair way to compare CPU versus GPU performance. Consult the OzStar/NT documentation for reference.
+
+How many cells are used in this simulation? How many cells are updated per second for the GPU and CPU versions, respectively?
 
 ## Collective discussion
