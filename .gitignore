@@ -2,6 +2,13 @@ plt*
 .vscode/
 .ipynb_checkpoints/
 pyenv_gpu/
+*.nsys-rep
+*.sqlite
+add_cpu
+add_gpu
+blast_cpu
+blast_gpu
+hello
 
 # Prerequisites
 *.d
