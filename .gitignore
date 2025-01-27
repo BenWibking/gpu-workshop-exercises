@@ -1,6 +1,7 @@
 plt*
 .vscode/
 .ipynb_checkpoints/
+pyenv_gpu/
 
 # Prerequisites
 *.d
