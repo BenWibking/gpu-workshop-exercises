@@ -18,4 +18,4 @@ module load python/3.11.3
 python3 -m venv ~/gpu-workshop-exercises/pyenv_gpu
 source ~/gpu-workshop-exercises/pyenv_gpu/bin/activate
 pip install --upgrade pip
-pip install yt ipython jupyter
+pip install yt ipython jupyter ppmpy
