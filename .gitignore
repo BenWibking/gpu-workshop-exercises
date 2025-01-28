@@ -1,3 +1,4 @@
+*.png
 plt*
 .vscode/
 .ipynb_checkpoints/
