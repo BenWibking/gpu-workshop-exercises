@@ -15,7 +15,7 @@ Open the included Jupyter Notebook `Visualization.ipynb` by running
 
 ```
 $ cd session2/ex4
-$ jupyter notebook
+$ jupyter notebook --no-browser
 ```
 
 After a few seconds, you should see output similar to this:
