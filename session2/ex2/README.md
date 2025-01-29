@@ -10,7 +10,7 @@ amr.n_cell          = 128 128 128
 
 2. Run the new test problem
 ```
-$ mpirun ./blast_gpu quokka/tests/blast_128.in max_timesteps=500
+$ mpirun ./blast_gpu quokka/tests/blast_128.in max_timesteps=500 plotfile_prefix=gpu128_plt
 ```
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
 
@@ -18,7 +18,7 @@ Note the time it takes to run. This is printed to the terminal output (look for 
 
 Then run Quokka on 16 CPU cores:
 ```
-$ mpirun --oversubscribe -np 16 ./blast_cpu quokka/tests/blast_128.in max_timesteps=500
+$ mpirun --oversubscribe -np 16 ./blast_cpu quokka/tests/blast_128.in max_timesteps=500 plotfile_prefix=cpu128_plt
 ```
 
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").

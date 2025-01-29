@@ -1,5 +1,6 @@
 *.png
-plt*
+plt*/
+*_plt*/
 .vscode/
 .ipynb_checkpoints/
 pyenv_gpu/

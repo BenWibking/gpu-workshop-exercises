@@ -21,7 +21,7 @@ This should take about 5 minutes.
 ```
 $ cp src/problems/HydroBlast3D/test_hydro3d_blast ~/gpu-workshop-exercises/blast_gpu
 $ cd ~/gpu-workshop-exercises
-$ mpirun ./blast_gpu quokka/tests/blast_32.in
+$ mpirun ./blast_gpu quokka/tests/blast_32.in plotfile_prefix=gpu_plt
 ```
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
 
@@ -41,7 +41,7 @@ Then we will run copy the executable and run Quokka on 16 CPU cores:
 ```
 $ cp src/problems/HydroBlast3D/test_hydro3d_blast ~/gpu-workshop-exercises/blast_cpu
 $ cd ~/gpu-workshop-exercises
-$ mpirun --oversubscribe -np 16 ./blast_cpu quokka/tests/blast_32.in
+$ mpirun --oversubscribe -np 16 ./blast_cpu quokka/tests/blast_32.in plotfile_prefix=cpu_plt
 ```
 
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
