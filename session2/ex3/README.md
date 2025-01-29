@@ -19,7 +19,7 @@ $ mpirun ./blast_gpu quokka/tests/blast_128_maxgrid128.in max_timesteps=500 plot
 ```
 Note the time it takes to run. This is printed to the terminal output (look for "elapsed time").
 
-(These grid parameters do not make for running on the CPU, so we will not run the CPU version.)
+(These grid parameters are not optimal on the CPU, so we will not run the CPU version.)
 
 ## Discussion
 How much faster is this version of the simulation compared to the previous version?
