@@ -1,5 +1,14 @@
 # Bonus: visualizing the output
 
+## Running a full simulation
+
+Let's re-run the last simulation, but let it run up to 10,000 timesteps:
+```
+$ mpirun ./blast_gpu quokka/tests/blast_128_maxgrid128.in plotfile_prefix=gpu128_maxgrid128_plt
+```
+
+## Visualization
+
 Let's look at the simulations we ran.
 
 Open the included Jupyter Notebook `Visualization.ipynb` by running
