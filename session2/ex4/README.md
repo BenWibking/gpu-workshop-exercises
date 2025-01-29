@@ -11,7 +11,9 @@ $ mpirun ./blast_gpu quokka/tests/blast_128_maxgrid128.in plotfile_prefix=gpu128
 
 Let's look at the simulations we ran.
 
-Open the included Jupyter Notebook `Visualization.ipynb` by running
+First, make sure you are NOT running an interactive job. Jupyter Notebooks can't be forwarded from within an interactive job. We will have to run the notebook on the login node. You should see `[username@tooarrana1]` or `[username@tooarrana2]` in your command prompt. If not, type `exit` to exit the interactive job and return to the login node.
+
+Then, open the included Jupyter Notebook `Visualization.ipynb` by running
 
 ```
 $ cd session2/ex4
