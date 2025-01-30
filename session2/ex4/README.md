@@ -2,7 +2,7 @@
 
 ## Running a full simulation
 
-Let's re-run the last simulation, but let it run up to 10,000 timesteps:
+Let's re-run the last simulation, but let it run as many timesteps as needed:
 ```
 $ mpirun ./blast_gpu quokka/tests/blast_128_maxgrid128.in plotfile_prefix=gpu128_maxgrid128_plt
 ```
