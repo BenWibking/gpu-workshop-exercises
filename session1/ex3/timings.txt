@@ -1,0 +1,57 @@
+ Time (%)  Total Time (ns)  Instances    Avg (ns)       Med (ns)      Min (ns)     Max (ns)    StdDev (ns)             Name           
+ --------  ---------------  ---------  -------------  -------------  -----------  -----------  -----------  --------------------------
+    100.0      103,061,016          1  103,061,016.0  103,061,016.0  103,061,016  103,061,016          0.0  add(int, float *, float *)
+
+
+ Time (%)  Total Time (ns)  Count   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)           Operation          
+ --------  ---------------  -----  -----------  -----------  ---------  ---------  -----------  ----------------------------
+     67.5        3,072,961      2  1,536,480.5  1,536,480.5  1,526,192  1,546,769     14,550.1  [CUDA memcpy Host-to-Device]
+     32.5        1,481,554      1  1,481,554.0  1,481,554.0  1,481,554  1,481,554          0.0  [CUDA memcpy Device-to-Host]
+
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation          
+ ----------  -----  --------  --------  --------  --------  -----------  ----------------------------
+      8.000      2     4.000     4.000     4.000     4.000        0.000  [CUDA memcpy Host-to-Device]
+      4.000      1     4.000     4.000     4.000     4.000        0.000  [CUDA memcpy Device-to-Host]
+
+
+
+[bwibking@gina17 ex3]$ time ./add_cpu
+N = 1000000 elements
+Max error: 0
+
+real    0m0.023s
+user    0m0.014s
+sys     0m0.008s
+
+[bwibking@gina17 ex3]$ time ./add_gpu
+N = 1000000 elements
+Max error: 0
+
+real    0m0.324s
+user    0m0.122s
+sys     0m0.197s
+
+Exercises
+---------
+1. How long did it take to add the two arrays?
+0.103 s
+
+2. How long did it take to transfer the input data to the GPU?
+3.1 milliseconds
+
+3. How long did it take to transfer the result back to the CPU? Provide your answers in milliseconds.
+1.5 milliseconds
+
+4. How much data (in megabytes) was transferred from the CPU to the GPU?
+8 megabytes
+
+5. How much data (in megabytes) was transferred from the GPU to the CPU?
+4 megabytes
+
+6. Using these numbers, calculate the bandwidth (in gigabytes per second) of data transfer between CPU and GPU and vice versa.
+host-to-device BW: 2.5 GB/s
+device-to-host BW: 2.6 GB/s
+
+For reference, HBM bandwidth on A100 is: 2,039 GB/s
+-> Host-device transfers are ~800x slower than accessing GPU memory!!!
