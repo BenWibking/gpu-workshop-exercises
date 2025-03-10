@@ -1,5 +1,21 @@
 # gpu-workshop-exercises
 
+## MSU HPCC
+
+1. Login to the interactive GPU node here: https://ondemand.hpcc.msu.edu/pun/sys/shell/ssh/dev-amd24-h200
+
+2. Download this repository:
+```
+$ git clone https://github.com/BenWibking/gpu-workshop-exercises.git
+```
+
+3. Load the included Bash profile:
+```
+$ cd gpu-workshop-exercises
+$ . hpcc.profile
+```
+
+## OzStar
 1. Login to `nt.swin.edu.au`:
 ```
 $ ssh nt.swin.edu.au
